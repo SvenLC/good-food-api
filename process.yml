@@ -1,0 +1,8 @@
+apps:
+  - script   : ./dist/index.js
+    name     : 'gf-api'
+    instances: 2
+    exec_mode: cluster
+    watch  : true
+    env    :
+      NODE_ENV: development

@@ -2,11 +2,24 @@ import { Client } from './client.model';
 
 import { ErrorHandler } from '../shared/error';
 import { v4 as uuidv4 } from 'uuid';
+import { writer } from '../shared/logger';
 
 export const getClients = async (req, res, next) => {
+  const startTimer = new Date();
   try {
     const result = await Client.find();
     res.status(200).json(result);
+    console.log(new Date() - startTimer);
+    writer.writePoint(
+      'request',
+      {
+        method: 'GET',
+        service: 'good-food-api',
+      },
+      {
+        responseTime: new Date() - startTimer,
+      }
+    );
   } catch (error) {
     next(error);
   }

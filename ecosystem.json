@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "name": "good-food-api",
+      "script": "./dist/index.js",
+      "watch": true,
+      "instances": 4,
+      "exec_mode": "cluster_mode",
+      "env_production": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}

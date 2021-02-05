@@ -6,13 +6,13 @@ WORKDIR /app
 FROM base AS builder
 COPY package.json .babelrc ./
 RUN npm install
-COPY ./src ./src
-RUN npm run build
-RUN npm prune --production
+COPY ./src ./src 
+RUN npm run build && npm prune --production
 
 # ---------- Release ----------
 FROM base AS release
+RUN npm install pm2 -g
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 USER node
-CMD ["node", "./dist/index.js"]
+CMD ["pm2-runtime", "./dist/index.js"]

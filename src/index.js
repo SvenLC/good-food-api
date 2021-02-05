@@ -11,8 +11,6 @@ const mongoDB = process.env.DB_URI || 'mongodb://127.0.0.1/good-food';
 const app = express();
 app.use(express.json());
 
-console.log(mongoDB);
-
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -31,7 +29,6 @@ app.get('/check', (req, res) => {
 app.use(handleNotFound);
 app.use(handleError);
 
-app.listen(8080, () => {
-  console.log('toto');
-  console.log(`Server running : ${new Date()} at port 8080`);
+app.listen(4000, () => {
+  console.log(`Server running : ${new Date()} at port 4000`);
 });

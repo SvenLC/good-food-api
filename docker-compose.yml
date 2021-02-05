@@ -6,10 +6,11 @@ networks:
     driver: bridge
 
 services:
-  good-food-api:
+  good-food:
     build: .
+    image: api
     ports:
-      - '8080:8080'
+      - '4000:4000'
     networks: 
       - app-network
     environment: 
@@ -20,23 +21,7 @@ services:
     image: mongo
     ports:
       - '27017:27017'
-    volumes:
-      - ./data/:/data/db
     networks: 
       - app-network
-  # influxdb:
-  #   image: influxdb:latest     
-  #   ports:
-  #     - "8086:8086"
-  #   volumes:
-  #     - ./data/influxdb:/var/lib/influxdb
-  #   environment:
-  #     - INFLUXDB_DB=winston
-  # chronograf:
-  #   image: chronograf:latest
-  #   entrypoint: 'chronograf --influxdb-url=http://influxdb:8086'
-  #   depends_on: ['influxdb']
-  #   ports:
-  #     - "8888:8888"
 
 

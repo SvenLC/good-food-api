@@ -1,0 +1,22 @@
+  # docker-compose.yml
+version: '3.8'
+
+networks:
+  app-network:
+    driver: bridge
+    
+services:
+  influxdb:
+    image: influxdb:latest     
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./data/influxdb:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=winston
+  chronograf:
+    image: chronograf:latest
+    entrypoint: 'chronograf --influxdb-url=http://influxdb:8086'
+    depends_on: ['influxdb']
+    ports:
+      - "8888:8888"
